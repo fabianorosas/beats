@@ -6,6 +6,6 @@ MAINTAINER Tudor Golubenco <tudor@elastic.co>
 RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential ruby-dev rpm zip dos2unix libgmp3-dev
+        build-essential ruby-dev rpm zip dos2unix libgmp3-dev libffi-dev
 
 RUN gem install fpm
