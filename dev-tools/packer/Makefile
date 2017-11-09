@@ -10,14 +10,12 @@ packer_absdir=$(shell dirname ${makefile_abspath})
 beat_abspath=${BEATS_GOPATH}/src/${BEAT_PATH}
 
 
-%/deb: ${BUILD_DIR}/god-linux-386 ${BUILD_DIR}/god-linux-amd64 fpm-image
+%/deb: ${BUILD_DIR}/god-linux-amd64 fpm-image
 	echo Creating DEB packages for $(@D)
-	ARCH=386 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/debian/build.sh
 	ARCH=amd64 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/debian/build.sh
 
-%/rpm: ${BUILD_DIR}/god-linux-386 ${BUILD_DIR}/god-linux-amd64 fpm-image
+%/rpm: ${BUILD_DIR}/god-linux-amd64 fpm-image
 	echo Creating RPM packages for $(@D)
-	ARCH=386 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/centos/build.sh
 	ARCH=amd64 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/centos/build.sh
 
 %/darwin:
@@ -26,12 +24,10 @@ beat_abspath=${BEATS_GOPATH}/src/${BEAT_PATH}
 
 %/win:
 	echo Creating Darwin packages for $(@D)
-	ARCH=386 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/windows/build.sh
 	ARCH=amd64 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/windows/build.sh
 
 %/bin:
 	echo Creating Linux packages for $(@D)
-	ARCH=386 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/binary/build.sh
 	ARCH=amd64 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/binary/build.sh
 
 .PHONY: package-dashboards
@@ -58,7 +54,7 @@ fpm-image:
 go-daemon-image:
 	docker build --rm=true -t tudorg/go-daemon $(packer_absdir)/docker/go-daemon/
 
-${BUILD_DIR}/god-linux-386 ${BUILD_DIR}/god-linux-amd64:
+${BUILD_DIR}/god-linux-amd64:
 	docker run --rm -v ${BUILD_DIR}:/build tudorg/go-daemon
 
 ${BUILD_DIR}/upload:
