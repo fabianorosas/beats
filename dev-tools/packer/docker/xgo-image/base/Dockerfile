@@ -3,7 +3,7 @@
 #
 # Released under the MIT license.
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Tudor Golubenco <tudor@elastic.co>
 
