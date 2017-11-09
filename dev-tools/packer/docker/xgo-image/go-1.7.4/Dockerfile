@@ -9,7 +9,7 @@ MAINTAINER Tudor Golubenco <tudor@elastic.co>
 
 # Configure the root Go distribution and bootstrap based on it
 RUN \
-  export ROOT_DIST="https://storage.googleapis.com/golang/go1.7.4.linux-amd64.tar.gz" && \
-  export ROOT_DIST_SHA1="2e5baf03d1590e048c84d1d5b4b6f2540efaaea1" && \
+  export ROOT_DIST="https://storage.googleapis.com/golang/go1.7.4.linux-ppc64le.tar.gz" && \
+  export ROOT_DIST_SHA1="75b26922e8e60a688da88d5c7bec8049a80228bb" && \
   \
   $BOOTSTRAP_PURE
