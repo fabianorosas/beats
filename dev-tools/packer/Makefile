@@ -10,9 +10,10 @@ packer_absdir=$(shell dirname ${makefile_abspath})
 beat_abspath=${BEATS_GOPATH}/src/${BEAT_PATH}
 
 
-%/deb: ${BUILD_DIR}/god-linux-amd64 fpm-image
+%/deb: ${BUILD_DIR}/god-linux-amd64 ${BUILD_DIR}/god-linux-ppc64le fpm-image
 	echo Creating DEB packages for $(@D)
 	ARCH=amd64 BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/debian/build.sh
+	ARCH=ppc64le BEAT=$(@D) BUILD_DIR=${BUILD_DIR} BEAT_PATH=$(beat_abspath) BUILDID=$(BUILDID) SNAPSHOT=$(SNAPSHOT) $(packer_absdir)/platforms/debian/build.sh
 
 %/rpm: ${BUILD_DIR}/god-linux-amd64 fpm-image
 	echo Creating RPM packages for $(@D)
@@ -54,7 +55,7 @@ fpm-image:
 go-daemon-image:
 	docker build --rm=true -t tudorg/go-daemon $(packer_absdir)/docker/go-daemon/
 
-${BUILD_DIR}/god-linux-amd64:
+${BUILD_DIR}/god-linux-amd64 ${BUILD_DIR}/god-linux-ppc64le:
 	docker run --rm -v ${BUILD_DIR}:/build tudorg/go-daemon
 
 ${BUILD_DIR}/upload:
